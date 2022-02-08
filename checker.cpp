@@ -2,10 +2,6 @@
 #include <iostream>
 using namespace std;
 
-bool bBatteryTemperatureIsOk(float temperature);
-bool bBatterySoCIsOk(float soc);
-bool bBatteryChargeRateIsOk(float chargeRate);
-
 bool bBatteryTemperatureIsOk(float temperature)
 {
   bool bRetBatteryTemperatureIsOk = true;
