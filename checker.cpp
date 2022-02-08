@@ -45,14 +45,34 @@ bool batteryIsOk(float temperature, float soc, float chargeRate)
   return ( (bBatteryTemperatureIsOk(temperature) == true) && (bBatterySoCIsOk(soc) == true) && (bBatteryChargeRateIsOk(chargeRate) == true) );
 }
 
-void vTestBatteryTemperature()
+void vTestBatteryTemperatureRanges()
 {
-  // test for different range of temperatures.
-  assert(bBatteryTemperatureIsOk(0, 70, 0.7) == false);
-  assert(bBatteryTemperatureIsOk(50, 70, 0.7) == false);
+  assert(bBatteryTemperatureIsOk(-1) == false);
+  assert(bBatteryTemperatureIsOk(50) == false);
 }
+
+void vTestBatterySoCRanges()
+{
+  assert(bBatterySoCIsOk(0) == false);
+  assert(bBatterySoCIsOk(100) == false);
+} 
+
+void vTestBatteryChargeRateRanges()
+{
+  assert(bBatteryChargeRateIsOk(1) == false);
+  assert(bBatteryChargeRateIsOk(3.5) == false);
+} 
 
 int main() {
   assert(batteryIsOk(25, 70, 0.7) == true);
   assert(batteryIsOk(50, 85, 0) == false);
+  
+  // test for various temperature ranges.
+  vTestBatteryTemperatureRanges();
+  
+  // test for various SoC ranges.
+  vTestBatterySoCRanges();
+  
+  // test for various ranges of charge rate.
+  vTestBatteryChargeRateRanges();
 }
