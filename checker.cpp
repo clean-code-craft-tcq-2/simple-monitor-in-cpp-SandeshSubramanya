@@ -41,9 +41,7 @@ bool bBatteryChargeRateIsOk(float chargeRate)
 
 
 bool batteryIsOk(float temperature, float soc, float chargeRate) {
-  } 
-  }
-  return true;
+  return ( (bBatteryTemperatureIsOk == true) && (bBatterySoCIsOk == true) && (bBatteryChargeRateIsOk == true) )
 }
 
 int main() {
