@@ -40,7 +40,8 @@ bool bBatteryChargeRateIsOk(float chargeRate)
 }
 
 
-bool batteryIsOk(float temperature, float soc, float chargeRate) {
+bool batteryIsOk(float temperature, float soc, float chargeRate) 
+{
   return ( (bBatteryTemperatureIsOk == true) && (bBatterySoCIsOk == true) && (bBatteryChargeRateIsOk == true) )
 }
 
