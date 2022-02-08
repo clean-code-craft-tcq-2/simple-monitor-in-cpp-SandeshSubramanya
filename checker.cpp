@@ -10,7 +10,6 @@ bool bBatteryTemperatureIsOk(float temperature)
     cout << "Temperature out of range!\n";
     bRetBatteryTemperatureIsOk = false;
   }
-
   return bRetBatteryTemperatureIsOk;
 }
 
@@ -21,21 +20,18 @@ bool bBatterySoCIsOk(float soc)
    {
      cout << "State of Charge out of range!\n";
      bRetBatterySoCIsOk = false;
-   }
-     
+   }  
    return bRetBatterySoCIsOk;
 }
 
 bool bBatteryChargeRateIsOk(float chargeRate)
 {
   bool bRetChargeRateIsOk = true;
-  
   if(chargeRate > 0.8)
   {
     cout << "Charge Rate out of range!\n";
     bRetChargeRateIsOk = false;
   }
-
   return bRetChargeRateIsOk;
 }
 
