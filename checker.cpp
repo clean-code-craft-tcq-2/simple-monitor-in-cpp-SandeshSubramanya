@@ -14,12 +14,12 @@ typedef enum teBatteryParameterType     //te stands for type enum
     BATTERY_CHARGERATE
 }eBatteryParamType;
 
-bool bIsValueInToleranceRange(float fValue, float fToleranceValue)
+bool bIsCurrentValueInToleranceRange(float upper_limit, float lower_limit, float fToleranceValue, float fCurrentValue)
 {
-    return ( (std::abs(fValue-MAX_BATTERYSOC_VALUE) <= fToleranceValue) ||  std::abs(fValue-MIN_BATTERYSOC_VALUE) <= fToleranceValue);
+    return ( (std::abs(fCurrentValue-upper_limit) <= fToleranceValue) ||  std::abs(fCurrentValue-lower_limit) <= fToleranceValue);
 }
 
-bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
+bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fInputValue)
 {
     bool bRaiseWarning = false;
     
@@ -27,7 +27,7 @@ bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
     {
         //SOC 
         float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
-        bRaiseWarning = bIsValueInToleranceRange(fValue,fToleranceValue);
+        bRaiseWarning = bIsCurrentValueInToleranceRange(MAX_BATTERYSOC_VALUE, MIN_BATTERYSOC_VALUE, fToleranceValue, fInputValue);
         cout << "Early warning neccessary: "<<bRaiseWarning<<endl;
     }
     return bRaiseWarning;
