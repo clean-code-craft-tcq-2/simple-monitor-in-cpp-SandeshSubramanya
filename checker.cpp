@@ -1,6 +1,39 @@
 #include <assert.h>
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+#define MIN_BATTERYSOC_VALUE (float) 20
+#define MAX_BATTERYSOC_VALUE (float) 80
+#define SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING 5 // 5%
+
+typedef enum teBatteryParameterType     //te stands for type enum
+{
+    BATTERY_SOC = 0,
+    BATTERY_TEMPERATURE,
+    BATTERY_CHARGERATE
+}eBatteryParamType;
+
+bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
+{
+    bool bRaiseWarning = false;
+    
+    if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
+    {
+        //SOC 
+        float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
+        
+        if( 
+            (std::abs(fValue-MAX_BATTERYSOC_VALUE) <= fToleranceValue)
+            ||
+            (std::abs(fValue-MIN_BATTERYSOC_VALUE) <= fToleranceValue)
+          )
+          {
+              bRaiseWarning = true;
+          }
+    }
+    return bRaiseWarning;
+}
 
 bool bBatteryTemperatureIsOk(float temperature)
 {
