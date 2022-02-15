@@ -15,11 +15,11 @@ typedef enum teBatteryParameterType     //te stands for type enum
 }eBatteryParamType;
 
 
-bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
+/*bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
 {
     bool bRaiseWarning = false;
     
-    /*if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
+    if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
     {
         //SOC 
         float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
@@ -32,9 +32,9 @@ bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
           {
               bRaiseWarning = true;
           }
-    }*/
+    }
     return bRaiseWarning;
-}
+}*/
 
 bool bBatteryParameterIsOk(eBatteryParamType oBatteryParamType, float value)
 {
