@@ -14,7 +14,7 @@ typedef enum teBatteryParameterType     //te stands for type enum
     BATTERY_CHARGERATE
 }eBatteryParamType;
 
-bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
+/*bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
 {
     bool bRaiseWarning = false;
     
@@ -33,7 +33,7 @@ bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
           }
     }
     return bRaiseWarning;
-}
+}*/
 
 bool bBatteryTemperatureIsOk(float temperature)
 {
