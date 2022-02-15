@@ -14,28 +14,6 @@ typedef enum teBatteryParameterType     //te stands for type enum
     BATTERY_CHARGERATE
 }eBatteryParamType;
 
-
-/*bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
-{
-    bool bRaiseWarning = false;
-    
-    if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
-    {
-        //SOC 
-        float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
-        
-        if( 
-            (std::abs(fValue-MAX_BATTERYSOC_VALUE) <= fToleranceValue)
-            ||
-            (std::abs(fValue-MIN_BATTERYSOC_VALUE) <= fToleranceValue)
-          )
-          {
-              bRaiseWarning = true;
-          }
-    }
-    return bRaiseWarning;
-}*/
-
 bool bBatteryParameterIsOk(eBatteryParamType oBatteryParamType, float value)
 {
   bool bRetBatteryParamterIsOk = true;
