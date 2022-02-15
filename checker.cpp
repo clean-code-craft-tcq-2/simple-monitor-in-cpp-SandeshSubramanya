@@ -14,11 +14,12 @@ typedef enum teBatteryParameterType     //te stands for type enum
     BATTERY_CHARGERATE
 }eBatteryParamType;
 
-/*bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
+
+bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
 {
     bool bRaiseWarning = false;
     
-    if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
+    /*if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
     {
         //SOC 
         float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
@@ -31,31 +32,33 @@ typedef enum teBatteryParameterType     //te stands for type enum
           {
               bRaiseWarning = true;
           }
-    }
+    }*/
     return bRaiseWarning;
-}*/
+}
 
-bool bBatteryTemperatureIsOk(float temperature)
+bool bBatteryParameterIsOk(eBatteryParamType oBatteryParamType, float value)
 {
-  bool bRetBatteryTemperatureIsOk = true;
-  if(temperature < 0 || temperature > 45) 
+  bool bRetBatteryParamterIsOk = true;
+  
+  if (oBatteryParamType ==  teBatteryParameterType::BATTERY_TEMPERATURE)
   {
-    cout << "Temperature out of range!\n";
-    bRetBatteryTemperatureIsOk = false;
+    if(value < 0 || value > 45)
+    {
+        cout << "Temperature out of range!\n";
+        bRetBatteryParamterIsOk = false;
+    }
   }
-  return bRetBatteryTemperatureIsOk;
+  else if (oBatteryParamType ==  teBatteryParameterType::BATTERY_SOC)
+  {
+    if(value < 20 || value > 80)
+    {
+        cout << "State of Charge out of range!\n";
+        bRetBatteryParamterIsOk = false;
+    }  
+  }
+  return bRetBatteryParamterIsOk;
 }
 
-bool bBatterySoCIsOk(float soc)
-{
-   bool bRetBatterySoCIsOk = true;
-   if(soc < 20 || soc > 80)
-   {
-     cout << "State of Charge out of range!\n";
-     bRetBatterySoCIsOk = false;
-   }  
-   return bRetBatterySoCIsOk;
-}
 
 bool bBatteryChargeRateIsOk(float chargeRate)
 {
@@ -71,19 +74,19 @@ bool bBatteryChargeRateIsOk(float chargeRate)
 
 bool batteryIsOk(float temperature, float soc, float chargeRate) 
 {
-  return ( (bBatteryTemperatureIsOk(temperature) == true) && (bBatterySoCIsOk(soc) == true) && (bBatteryChargeRateIsOk(chargeRate) == true) );
+  return ( (bBatteryParameterIsOk(teBatteryParameterType::BATTERY_TEMPERATURE,temperature) == true) && (bBatteryParameterIsOk(teBatteryParameterType::BATTERY_SOC,soc) == true) && (bBatteryChargeRateIsOk(chargeRate) == true) );
 }
 
 void vTestBatteryTemperatureRanges()
 {
-  assert(bBatteryTemperatureIsOk(-1) == false);
-  assert(bBatteryTemperatureIsOk(50) == false);
+  assert(bBatteryParameterIsOk(teBatteryParameterType::BATTERY_TEMPERATURE, -1) == false);
+  assert(bBatteryParameterIsOk(teBatteryParameterType::BATTERY_TEMPERATURE, 50) == false);
 }
 
 void vTestBatterySoCRanges()
 {
-  assert(bBatterySoCIsOk(0) == false);
-  assert(bBatterySoCIsOk(100) == false);
+  assert(bBatteryParameterIsOk(teBatteryParameterType::BATTERY_SOC,0) == false);
+  assert(bBatteryParameterIsOk(teBatteryParameterType::BATTERY_SOC,100) == false);
 } 
 
 void vTestBatteryChargeRateRanges()
