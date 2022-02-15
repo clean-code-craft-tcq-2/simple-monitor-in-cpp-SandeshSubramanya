@@ -28,6 +28,7 @@ bool bEarlyWarningNecessary(eBatteryParamType oBatteryParamType, float fValue)
         //SOC 
         float fToleranceValue = (SOC_TOLERANCE_FACTOR_FOR_EARLYWARNING / 100.f ) * MAX_BATTERYSOC_VALUE;
         bRaiseWarning = bIsValueInToleranceRange(fValue,fToleranceValue);
+        cout << "Early warning neccessary: "<<bRaiseWarning<<endl;
     }
     return bRaiseWarning;
 }
@@ -101,4 +102,8 @@ int main() {
   
   // test for various ranges of charge rate.
   vTestBatteryChargeRateRanges();
+    
+  assert(bEarlyWarningNecessary(teBatteryParameterType::BATTERY_SOC,77) == true);
+  assert(bEarlyWarningNecessary(teBatteryParameterType::BATTERY_SOC,22) == true);
+  assert(bEarlyWarningNecessary(teBatteryParameterType::BATTERY_SOC,70) == false);
 }
